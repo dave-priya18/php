@@ -1,0 +1,23 @@
+Difference between Array Functions:
+
+
+1. arsort() v/s rsort()
+	
+	arsort() - index association in reverse & doesn't change the indexing
+
+	rsort() - value association in reverse & reindex with the ordering
+
+2. array_search() v/s in_array()
+
+	array_search() - returns correspondent key if value exists
+
+	in_array() - returns boolean True/False if value exists/ doesn't exist
+
+3. array_map() v/s array_walk()
+	
+	array_map() - doesn't concern about internal pointer of array; walk through every data eventually
+				- doesn't change the actual state of data
+
+	array_walk()- works as foreach loop
+				- change the actual state of data
+

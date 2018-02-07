@@ -1,0 +1,235 @@
+JSON 
+	- supported in all browser
+	- formate: name/value
+	- fast object de-serialization
+
+XML
+	- parsing is difficult
+	- no formation, take namespace and special english letters
+
+
+
+-----------------------------------------------------------------------------------------------
+
+Primary Key
+	- Identifies every tuple uniquely 
+	- Can not be null
+	- Auto-incremented
+
+
+Unique Key
+	- One or More than one key that can identify tuple uniquley
+	- Can accept only one NULL Value
+	- Can not have auto_increment
+
+
+Primary Key is always Unique Key BUT Unique Key is not always Primary Key
+
+Forgien Key
+	- One Table's PK is other table's FK if both table are connected.
+	- It's Reference of that table in the new table.
+
+----------------------------------------------------------------------------------------------
+
+header() in php
+
+	- refresh
+		to reload the page after specific time
+		Syntax: 
+		header('Refresh:10'); // refresh after 10 seconds
+
+	- location
+		to load certain page 
+		Syntax:
+		header('Location:include/index.php');
+
+	- content type & content disposition
+		to let user save the data in PDF of other format
+
+		Syntax:
+		header('Content-Type: application/pdf');
+		header('Content-Disposition: attachment; filename="downloaded.pdf');
+
+
+---------------------------------------------------------------------------------------------
+ob_start() 	- turns on output buffering
+			- till op_close() is called no-output will get out of script and stored in internal buffer.
+
+
+ob_get_contents() - to get all the contents stored in output buffer.
+
+ob_end_clean() - delete all the values sotred in output buffer.
+
+ob_flush() - buffer data will be discarded.
+
+ob_clean() - clean the buffer
+
+ob_gzhandler 	- before showing output as display; it compresses the input.
+				- This reduces the size of the content being sent to the browser which might speed up the content transfer to the client. But it doesn't speed up your application/website.
+
+-----------------------------------------------------------------------------------------------
+
+
+
+DataType in MySQL
+	
+	- Numeric DataType
+
+	INT -> Signed/Unsigned Interger
+		-> Range: 	Unsigned: 0 to 4294967295
+					Signed: -2147483648 to 2147483647A 
+		-> Width:	11 digit
+
+
+	
+	TINYINT -> Small Integer- Signed/Ubnsigned 
+			-> Range:	UnSigned: 0 to 255
+						signed: -128 to 127
+			-> Width: 4 digit
+
+
+	SMALLINT 	-> Small Integer- Signed/Ubnsigned 
+				-> Range:	UnSigned: 0 to 65535
+							signed: -32768 to 32767
+				-> Width: 5 digit
+
+	MEDIUMINT 	-> Medium Integer- Signed/Ubnsigned 
+				-> Range:	UnSigned: 0 to 16777215
+							signed: -8388608 to 8388607
+				-> Width: 9 digit
+
+	BIGINT 		-> Large Integer- Signed/Ubnsigned 
+				-> Range:	UnSigned: 0 to 18446744073709551615
+							signed: -9223372036854775808 to 9223372036854775807
+				-> Width: 20 digit
+
+	FLOAT(M,D) 	-> Signed Only
+				-> Display Length - M , No. of Decimals - D
+				-> Default: 10,2
+				-> Decimal Precision: 24 palces 
+
+	DOUBLE(M,D)/REAL 	-> Signed Only
+						-> Display Length - M , No. of Decimals - D
+						-> Default: 16,4
+						-> Decimal Precision: 53 palces 
+
+	DECIMAL(M,D)/NUMERIC 	-> Signed Only
+							-> Display Length - M , No. of Decimals - D
+							-> Default: 16,4
+							-> Decimal Precision: 53 palces 
+
+
+	- String Datatype
+
+	CHAR(M)	-> Length: 1 and 255 characters
+			-> right-padded with spaces to the specified length when stored
+			-> Dafult Length: 1
+
+	VARCHAR(M)	-> Length: 1 and 255 characters
+				-> Have to Define length
+
+
+	BLOB or TEXT 	-> Length: 65535 characters. 
+					-> Binary Large Objects
+					-> Use: to store images or other types of files.
+					-> Case Sensitive
+
+
+
+	TINYBLOB or TINYTEXT	-> Length: 255 characters. 
+
+	MEDIUMBLOB or MEDIUMTEXT	-> Length: 16777215 characters. 
+
+	LONGBLOB or LONGTEXT	-> Length: 4294967295 characters.
+
+	ENUM 	-> An enumeration
+			-> creating a list of items from which the value must be selected (or it can be NULL). 
+			-> ENUM ('A', 'B', 'C') 
+
+
+	- Date/Time DataType
+
+
+	DATE 	-> Format: YYYY-MM-DD
+			-> Range: between 1000-01-01 and 9999-12-31. 
+
+	DATETIME 	-> Format: YYYY-MM-DD HH:MM:SS 
+				-> Range: between 1000-01-01 00:00:00 and 9999-12-31 23:59:59. 
+
+	TIMESTAMP 	-> Range: between midnight, January 1st, 1970 and sometime in 2037.
+
+	TIME 	-> Format: HH:MM:SS.
+
+	YEAR(M)	-> M- length of the Year(2 OR 4)
+			-> M =2 -> Length: 1970 to 2069 (70 to 69)
+			-> M =4 -> 1901 to 2155
+------------------------------------------------------------------------------
+
+Collasion
+
+	- how to compare and sort characters
+	- Default: utf8_general_ci
+
+Storage Engine
+	- InnoDB 
+		- By default
+		- High Quality and Performance
+		- DML
+			- Follows ACID Model
+			- Rollback, Crash-Recovery and Commit Actions
+			- Row-level Locking for secure Reading
+			- Primary Key Constraints - minimiza I/O Lookups
+			- Foreign Key Constraints - Data Integrity
+
+
+
+	- MyISAM
+		- Creates 3 file strcuture
+			- Table File (.frm)
+			- Data File (.MYD)
+			- Index File (.MYI)
+		- Data Values stored in low-byte first - 
+		- Numeric Values stored in high-byter first
+		- Table Limit: (2^32)
+		- Max. no of Indexs/Table: 64
+		- Max. no of Columns/Table: 16
+
+
+	- MEMORY
+		- used to store low priority data: cache/session data
+		- MySQL restart clears the data
+		- have in-memeory storage to access fast data 
+		- read only
+
+
+	- CSV
+		- stores data in text-files using comma-seperated values format
+		- table format file in Data Dictionary 
+		- 2 files
+			- table file having table structure   
+			- .csv file having data values (empty initially)  
+
+	- ARCHIVE
+		- stores unindexed data of DB into small footprint
+		- 3 files formation	
+			- table file (.frm)
+			- data file (.AZN)
+			- optimization operation file (.ARN)
+
+	- BLACKHOLE
+		- Accpets data but doesn't store the data
+		- 1 file formation
+			- table file (.frm)
+
+	- MERGE
+		- Merge to MyISAM tables having identical coulmns
+
+	- FEDERATED
+		- can access data from a remote MySQL database without using replication or cluster technology.
+
+	- EXAMPLE
+		- stub engine provides example of "how to create new storage engine"
+
+
+
+
