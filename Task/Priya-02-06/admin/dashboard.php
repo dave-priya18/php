@@ -1,4 +1,12 @@
-<?php require('include/connection.php'); ?>
+<?php
+require('./include/connection.php');
+    if(isset($_POST['log_out'])){
+        // echo "Hello";
+        // exit;
+        include('include/logout.php');
+
+    }
+?>
 
 <?php include('layout/header.php'); ?>
 
@@ -7,6 +15,12 @@
 
 
   <div class="content">
+
+       <form method="post">
+
+         <button type="submit" class="btn btn-info btn-fill pull-right" name="log_out">Logout</button>
+        </form>
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">

@@ -1,216 +1,112 @@
-<?php include('layout/header.php'); ?>
-
-<?php include('layout/leftsidebar.php'); ?>
-
+<?php 
+require('./include/connection.php');
 
 
-  <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
 
-                            <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
 
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                    </div>
+$login_username = $login_password =$login_username_error = $login_password_error =$var_password = $var_username= "";
+$count = 0;
+if(isset($_POST['login'])){
+//Username Validation
+
+    if(!($_POST['login_username'])==""){
+        $var_username = $_POST['login_username'];
+    }
+    else{
+        $count++;
+        $login_username_error = "Username is required";
+    }               
+
+//Password Validation
+
+    if(!($_POST['login_password'])==""){
+        $var_password = md5($_POST['login_password']);
+    }
+    else{
+        $count++;
+        $login_password_error = "Password is Required";
+    }
+
+    if($count != 0){
+        echo "Invalid Input";
+    }
+    else{
+        //echo "Connection Successful <br>";
+
+        $select_query =  "SELECT * FROM `admin_login` WHERE admin_username='".$var_username."' and admin_password='".$var_password."'";
+        //echo $select_query;
+                
+
+        $result = mysqli_query($_connection,$select_query);
+        $record = mysqli_fetch_assoc($result);
+        if(!empty($record)){
+            ob_start();
+            header('Location:dashboard.php');
+            //echo '<script>window.location="dashboard.php"</script>';
+            $_SESSION['admin_credential'] = $record; 
+        }
+        else{
+            ob_start();
+             header('Location:index.php');
+            //echo '<script>window.location="index.php"</script>';
+           
+        }
+
+    }
+
+
+
+}
+
+
+
+
+
+
+include('layout/header.php'); ?>
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Login</h4>
+                    </div>
+                    <div class="content">
+                        <form method="POST">
+                         <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" name="login_username"placeholder="Username">
+                                    <span style="color:red">* <?php echo $login_username_error;?></span> 
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" name="login_password" placeholder="Password" >
+                                    <span style="color:red">* <?php echo $login_password_error;?></span> 
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
 
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card ">
-                            <div class="header">
-                                <h4 class="title">2014 Sales</h4>
-                                <p class="category">All products including Taxes</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
-
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-check"></i> Data information certified
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="card ">
-                            <div class="header">
-                                <h4 class="title">Tasks</h4>
-                                <p class="category">Backend development</p>
-                            </div>
-                            <div class="content">
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox1" type="checkbox">
-						  							  	<label for="checkbox1"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox2" type="checkbox" checked>
-						  							  	<label for="checkbox2"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox3" type="checkbox">
-						  							  	<label for="checkbox3"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-												</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox4" type="checkbox" checked>
-						  							  	<label for="checkbox4"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox5" type="checkbox">
-						  							  	<label for="checkbox5"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Read "Following makes Medium better"</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox6" type="checkbox" checked>
-						  							  	<label for="checkbox6"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Unfollow 5 enemies from twitter</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="footer">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <button type="submit" name="login" class="btn btn-info btn-fill pull-right">Login</button>
+                        <div class="clearfix"></div>
+                    </form>
                 </div>
             </div>
         </div>
 
-<?php include('layout/footer.php'); ?>
 
+</div>
+</div>
+</div>
+
+<?php include('layout/footer.php'); ?>
