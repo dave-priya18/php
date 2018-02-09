@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 08, 2018 at 02:35 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Host: 127.0.0.1
+-- Generation Time: Feb 09, 2018 at 04:41 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,6 +40,33 @@ CREATE TABLE `admin_login` (
 
 INSERT INTO `admin_login` (`admin_id`, `admin_username`, `admin_password`) VALUES
 (1, 'priya1811', 'd6fcd9d23b8c650a915cfc82a4e156e6');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_about_us`
+--
+
+CREATE TABLE `client_about_us` (
+  `aboutus_id` int(3) NOT NULL COMMENT 'Primary Key',
+  `aboutus_title` varchar(30) NOT NULL COMMENT 'Title of the About Us',
+  `aboutus_image` varchar(100) NOT NULL COMMENT 'Image of the About Us',
+  `aboutus_desc` varchar(200) NOT NULL COMMENT 'Description of the About Us',
+  `aboutus_active_flag` int(1) DEFAULT NULL,
+  `created_by` int(3) NOT NULL,
+  `updated_by` int(3) NOT NULL,
+  `admin_id` int(11) NOT NULL COMMENT 'Foreign Key: Admin_id '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `client_about_us`
+--
+
+INSERT INTO `client_about_us` (`aboutus_id`, `aboutus_title`, `aboutus_image`, `aboutus_desc`, `aboutus_active_flag`, `created_by`, `updated_by`, `admin_id`) VALUES
+(1, '12345y', 'image.jpg', ' wefdgbnvcfghjm c', NULL, 1, 0, 1),
+(2, '12345678', 'download.jpg', ' wertyjmn vtyjm ', NULL, 1, 0, 1),
+(3, '1234567878', 'download.jpg', 'hcns dv oub acdv bhdm,fv; bifujenmfdv  ', NULL, 1, 0, 1),
+(4, '1234567890', 'download.jpg', ' qw4t5yukjmnbvcsdAewrtyuiop;lk,mnhgfdsawertyuiop[o;lkjhgfdsa', NULL, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -82,6 +109,12 @@ ALTER TABLE `admin_login`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `client_about_us`
+--
+ALTER TABLE `client_about_us`
+  ADD PRIMARY KEY (`aboutus_id`);
+
+--
 -- Indexes for table `user_profile`
 --
 ALTER TABLE `user_profile`
@@ -96,6 +129,12 @@ ALTER TABLE `user_profile`
 --
 ALTER TABLE `admin_login`
   MODIFY `admin_id` int(3) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `client_about_us`
+--
+ALTER TABLE `client_about_us`
+  MODIFY `aboutus_id` int(3) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_profile`

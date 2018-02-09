@@ -30,19 +30,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="table.php">
+                    <a href="conference.php">
                         <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
+                        <p>About Us</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.php">
+                    <a href="schedule.php">
                         <i class="pe-7s-news-paper"></i>
                         <p>Typography</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.php">
+                    <a href="speaker.php">
                         <i class="pe-7s-science"></i>
                         <p>Icons</p>
                     </a>

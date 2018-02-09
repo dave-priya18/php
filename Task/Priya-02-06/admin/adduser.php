@@ -191,7 +191,7 @@
         else{
             //DB Connection and Insert
             $select_query_all = "SELECT * FROM `user_profile` WHERE 
-            user_username = '".$var_up_username."' and user_email = '".$var_vp_email."' and user_fname = '".$var_vp_fname."' and user_lname='".$var_vp_lname."' and user_address='".$var_vp_address."' and user_city='".$var_vp_city."' and user_country='".$var_vp_country."' and user_postalcode='".$var_vp_postalcode."' and user_aboutme = '".$var_vp_aboutme."' and admin_id='".$_SESSION['admin_credential']['admin_id']."'";
+            user_username = '".$var_up_username."' and user_email = '".$var_vp_email."'";
             $result_all=mysqli_query($_connection,$select_query_all);
             if($row_all = mysqli_fetch_array($result_all)){
                  echo "<script type='text/javascript'>alert('User is already there!')</script>";
