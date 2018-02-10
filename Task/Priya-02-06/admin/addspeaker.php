@@ -18,7 +18,8 @@
 //Conference Name Validation
             if(!($_POST['_conference_title'])==""){
                 //echo "Conference: ".$_POST['_conference_title']."<br>";
-                $var_conference_title = $_POST['_conference_title'];
+               $var_conference_title = $_POST['_conference_title'];
+               
             }   
             else{
                 $count++;
@@ -84,7 +85,7 @@
  // print_r($_FILES);exit;
         if((!empty($_FILES['_speaker_image']['name']))){
           $var_s_image = $_FILES['_speaker_image']['name'];
-          $target_folder = "./speaker_image/";
+          $target_folder = "../upload/";
           $target_file = $target_folder . basename($_FILES['_speaker_image']['name']);
 
 // Select file type
@@ -98,7 +99,7 @@
 // Check extension
           if(in_array($imageFileType,$extensions_arr) ){
  // Upload file
-              move_uploaded_file($_FILES['_speaker_image']['tmp_name'],$target_folder.$var_speaker_image);
+              move_uploaded_file($_FILES['_speaker_image']['tmp_name'],$target_folder.$var_s_image);
           }
           else{
             $count++;
@@ -115,15 +116,15 @@
             echo "Invalid Input";
         }
         else{
-            //DB Connection and Insert
-            $select_query_all = "SELECT speaker_name, conference_id FROM conference_speaker_detail";
+          // DB Connection and Insert
+            $select_query_all = "SELECT speaker_name, conference_id FROM conference_speaker_detail WHERE speaker_name='".$var_s_name."' and conference_id = '".$var_conference_title."'";
+
             $result_all=mysqli_query($_connection,$select_query_all);
             if($row_all = mysqli_fetch_array($result_all)){
                  echo "<script type='text/javascript'>alert('Speaker is already there!')</script>";
             }
             else{
-                    echo $insert_query = "INSERT INTO `conference_speaker_detail`(`speaking_desc`, `speaker_name`, `speaker_designation`, `speaker_image`, `conference_id`, `admin_id`,'created_by') VALUES ('".$var_s_speaking."','".$var_s_name."','".$var_s_designation."','".$var_s_image."','".$var_conference_title."','".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')";
-                    exit;
+               echo  $insert_query = "INSERT INTO `conference_speaker_detail`(`speaking_desc`, `speaker_name`, `speaker_designation`, `speaker_image`, `conference_id`, `admin_id`,`created_by`) VALUES ('".$var_s_speaking."','".$var_s_name."','".$var_s_designation."','".$var_s_image."','".$var_conference_title."','".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')";
                     if (mysqli_query($_connection,$insert_query)) {
                         echo "<script type='text/javascript'>alert('Record inserted successfully!')</script>";
                         ob_start();
@@ -132,9 +133,10 @@
                     else {  
                         $error= mysqli_error($_connection);
                          echo "<script type='text/javascript'>alert('$error!')</script>";
-                     }  
-                }
-            }
+                     }
+                    }  
+              }
+            
     }
        
       

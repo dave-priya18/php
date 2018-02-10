@@ -44,7 +44,7 @@
                 <li>
                     <a href="speaker.php">
                         <i class="pe-7s-science"></i>
-                        <p>Icons</p>
+                        <p>Speaker</p>
                     </a>
                 </li>
                 <li>

@@ -38,7 +38,7 @@ $var = "true";
                                     </thead>
                                     <?php
 
-echo $select_query = "SELECT conference_speaker_detail.speaker_id,conference_speaker_detail.speaker_name, conference_speaker_detail.speaker_designation,conference_speaker_detail.speaker_image, conference_detail.conference_title
+ $select_query = "SELECT conference_speaker_detail.speaker_id,conference_speaker_detail.speaker_name, conference_speaker_detail.speaker_designation,conference_speaker_detail.speaker_image, conference_detail.conference_title
 FROM conference_speaker_detail
 LEFT JOIN conference_detail ON conference_speaker_detail.conference_id = conference_detail.conference_id and conference_speaker_detail.admin_id = conference_detail.admin_id";
 

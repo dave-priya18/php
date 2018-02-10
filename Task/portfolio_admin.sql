@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 09, 2018 at 03:54 PM
+-- Generation Time: Feb 10, 2018 at 02:30 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -54,20 +54,26 @@ CREATE TABLE `conference_detail` (
   `conference_desc` varchar(200) NOT NULL COMMENT 'Description of the About Us',
   `conference_start_date` date NOT NULL,
   `conference_end_date` date NOT NULL,
+  `conference_landmark` varchar(30) NOT NULL,
   `conference_active_flag` int(1) DEFAULT NULL,
   `created_by` int(3) NOT NULL,
   `updated_by` int(3) NOT NULL,
-  `admin_id` int(11) NOT NULL COMMENT 'Foreign Key: Admin_id '
+  `admin_id` int(11) NOT NULL COMMENT 'Foreign Key: Admin_id ',
+  `conference_city` varchar(30) NOT NULL,
+  `conference_state` varchar(30) NOT NULL,
+  `conference_country` int(30) NOT NULL,
+  `conference_postalcode` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `conference_detail`
 --
 
-INSERT INTO `conference_detail` (`conference_id`, `conference_title`, `conference_image`, `conference_desc`, `conference_start_date`, `conference_end_date`, `conference_active_flag`, `created_by`, `updated_by`, `admin_id`) VALUES
-(5, 'All IIT Conference', 'image.jpg', '   qwerty q  ', '2018-02-15', '2018-02-28', NULL, 1, 1, 1),
-(6, 'All DAIICT ', 'download.jpg', 'ALL DAIICTians at Synapase ', '2018-02-21', '2018-02-23', NULL, 1, 0, 1),
-(7, 'qfgwrg', 'image.jpg', ' grtejrsjw46', '2018-02-21', '2018-02-28', NULL, 1, 0, 1);
+INSERT INTO `conference_detail` (`conference_id`, `conference_title`, `conference_image`, `conference_desc`, `conference_start_date`, `conference_end_date`, `conference_landmark`, `conference_active_flag`, `created_by`, `updated_by`, `admin_id`, `conference_city`, `conference_state`, `conference_country`, `conference_postalcode`) VALUES
+(5, 'All IIT Conference', 'image.jpg', '   qwerty q  ', '2018-02-15', '2018-02-28', '', NULL, 1, 1, 1, '', '', 0, 0),
+(6, 'All DAIICT ', 'download.jpg', 'ALL DAIICTians at Synapase ', '2018-02-21', '2018-02-23', '', NULL, 1, 0, 1, '', '', 0, 0),
+(7, 'qfgwrg', 'download.jpg', '  grtejrsjw46 ', '2018-02-21', '2018-02-28', '', NULL, 1, 1, 1, '', '', 0, 0),
+(8, 'All IndiaNIC Conference', 'image.jpg', 'klsdjca b;,.wrvjheqtjg e m,qtt ', '2018-02-15', '2018-02-18', 'sddbedtmarum', NULL, 1, 0, 1, ' fmtudukled5lu', 'ndtkdt7k5t', 0, 989899);
 
 -- --------------------------------------------------------
 
@@ -94,7 +100,9 @@ CREATE TABLE `conference_speaker_detail` (
 
 INSERT INTO `conference_speaker_detail` (`speaker_id`, `speaking_desc`, `speaker_name`, `speaker_designation`, `speaker_image`, `conference_id`, `admin_id`, `active_flag`, `created_by`, `updated_by`) VALUES
 (1, 'qwert qwert', 'Ritesh Ambastha', 'CTO Nail Biter', 'image.jpg', 5, 1, 0, 0, 0),
-(2, 'qwhyfgncgmxrfbnc', 'Ritesh Ambastha', 'CTO Nail Biter', 'image.jpg', 6, 1, 0, 0, 0);
+(2, 'qwhyfgncgmxrfbnc', 'Ritesh Ambastha', 'CTO Nail Biter', 'image.jpg', 6, 1, 0, 0, 0),
+(3, ' bt35eyj5', 'etje57uk', 'nt567ik', 'image.jpg', 5, 1, 0, 1, 0),
+(4, ' rmk tm,dtcu,ltdi', 'xfykmdtu,l', 'fgckmytdul', 'download.jpg', 5, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -167,13 +175,13 @@ ALTER TABLE `admin_login`
 -- AUTO_INCREMENT for table `conference_detail`
 --
 ALTER TABLE `conference_detail`
-  MODIFY `conference_id` int(3) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=8;
+  MODIFY `conference_id` int(3) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `conference_speaker_detail`
 --
 ALTER TABLE `conference_speaker_detail`
-  MODIFY `speaker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `speaker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_profile`
