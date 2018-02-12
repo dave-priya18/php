@@ -1,6 +1,8 @@
 <?php include('include/connection.php'); ?>
 
 <?php
+$load_speaker_id = $_GET['id'];
+$adminid = $_SESSION['admin_credential']['admin_id'];
     $_speaker_name_error= $_speaker_speaking_error = $_speaker_designation_error = $_speaker_image_error = $_speaker_conference_title_error = "";
     $conference_title_data = array();
     $count =0;
@@ -15,7 +17,7 @@ while($edit_rows = mysqli_fetch_assoc($select_query)){
         $display_speaking = $edit_rows['speaking_desc'];
          $display_name = $edit_rows['speaker_name'];
          $display_designation = $edit_rows['speaker_designation'];
-       
+
          $display_image = $edit_rows['speaker_image'];
          $display_conference_id = $edit_rows['conference_id'];
         }
@@ -33,10 +35,10 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
             if(!($_POST['_conference_title'])==""){
                 //echo "Conference: ".$_POST['_conference_title']."<br>";
                 $var_conference_title = $_POST['_conference_title'];
-            }   
+            }
             else{
                 $count++;
-                $var_conference_title_error = "var_conference_title is Required";       
+                $var_conference_title_error = "var_conference_title is Required";
             }
 
 //Speaking Validation Validation
@@ -56,7 +58,7 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
             $count++;
             $_speaker_speaking_error = "Address is required";
         }
-        
+
 
 //Speaker Name Validation
         if(!($_POST['_speaker_name']) == ""){
@@ -75,7 +77,7 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
         }
 
 //Speaker Designation Validation
-            
+
         if(!($_POST['_speaker_designation']) == ""){
             if(!(strlen($_POST['_speaker_designation']) <= 50)){
                 $count++;
@@ -130,22 +132,26 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
         }
         else{
            // DB Connection and Insert
-                    echo $insert_query = "UPDATE  `conference_speaker_detail` SET `peaking_desc`, `speaker_name`, `speaker_designation`, `speaker_image`, `conference_id`, `admin_id`,`updated_by`) VALUES ('".$var_s_speaking."','".$var_s_name."','".$var_s_designation."','".$var_s_image."','".$var_conference_title."','".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')";
-                    
-                    if (mysqli_query($_connection,$insert_query)) {
+                    echo $update_query = "UPDATE `conference_speaker_detail`
+                    SET `speaking_desc`='$var_s_speaking',`speaker_name`='$var_s_name',
+                    `speaker_designation`='$var_s_designation',`speaker_image`='$var_s_image',`conference_id`='$var_conference_title',
+                  `updated_by`='$adminid'
+                    WHERE `speaker_id` = '$load_speaker_id'";
+                    if (mysqli_query($_connection,$update_query)) {
+                      echo "hello";
                         echo "<script type='text/javascript'>alert('Record inserted successfully!')</script>";
                         ob_start();
                         header('Location: speaker.php');
-                    } 
-                    else {  
+                    }
+                    else {
                         $error= mysqli_error($_connection);
                          echo "<script type='text/javascript'>alert('$error!')</script>";
-                     }  
-               
+                     }
+
             }
     }
-       
-      
+
+
 ?>
 <?php //include('layout/header.php'); ?>
 
@@ -161,17 +167,17 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
                         <h4 class="title">User Profile</h4>
 
                     </div>
-                    
+
                     <div class="content">
                         <form method="POST" enctype="multipart/form-data" >
-                
+
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Conference Title</label>
                                         <select name="_conference_title">
                                              <option value=""> select -</option>
-             <?php  while($rows_conference_title =mysqli_fetch_assoc($result_conference_title)){ 
+             <?php  while($rows_conference_title =mysqli_fetch_assoc($result_conference_title)){
 
                 if($rows_conference_title['conference_id'] == $edit_rows['conference_id'] ){  ?>
 
@@ -181,22 +187,22 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
 
                  <option value="<?php echo $rows_conference_title['conference_id']; ?>"><?php echo $rows_conference_title['conference_title']; ?></option>
 
-    <?php } } ?>                                            
+    <?php } } ?>
 
                                         </select>
-                                        <span class="error" style="color:red">* <?php echo $_speaker_conference_title_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_speaker_conference_title_error;?></span>
 
-                                       
+
                                     </div>
                                 </div>
                             </div>
-                        
+
                                <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Topic Brief</label>
                                         <textarea rows="5" class="form-control" placeholder="what they'll talk" name="_speaker_speaking"> <?php echo $display_speaking; ?> </textarea>
-                                        <span class="error" style="color:red">* <?php echo $_speaker_speaking_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_speaker_speaking_error;?></span>
                                     </div>
                                 </div>
                             </div>
@@ -206,17 +212,17 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
                                     <div class="form-group">
                                         <label>First Name</label>
                                         <input type="text" class="form-control" placeholder="First Name" name="_speaker_name" value="<?php echo $display_name ?>" >
-                                        <span class="error" style="color:red">* <?php echo $_speaker_name_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_speaker_name_error;?></span>
                                     </div>
                                 </div>
 
-                                 
+
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Designation</label>
                                         <input type="text" class="form-control" placeholder="Designation" name="_speaker_designation" value="<?php echo $display_designation ?>">
-                                        <span class="error" style="color:red">* <?php echo $_speaker_designation_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_speaker_designation_error;?></span>
                                     </div>
                                 </div>
                             </div>
@@ -232,9 +238,9 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
                                 </div>
                             </div>
 
-                  
 
-                           
+
+
                             </div>
                               <button type="submit" class="btn btn-info btn-fill pull-right" name="edit_speaker">Edit Speaker Profile</button>
 
@@ -242,9 +248,9 @@ $result_conference_title = mysqli_query($_connection,$select_conference_title_qu
 
                             <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button> -->
 
-              </form>            
+              </form>
         </div>
     </div>
 </div>
 
-<?php //include('layout/footer.php'); ?> 
+<?php //include('layout/footer.php'); ?>

@@ -19,14 +19,14 @@
     echo $load_conference_id;
 
    $edit_select_query = "SELECT * FROM conference_detail WHERE conference_id='".$load_conference_id."'and admin_id='".$_SESSION['admin_credential']['admin_id']."'";
-   
+
 
     $edit_result = mysqli_query($_connection,$edit_select_query);
     while($edit_rows = mysqli_fetch_array($edit_result)){
         $display_title = $edit_rows['conference_title'];
         $display_desc = $edit_rows['conference_desc'];
         $display_image = $edit_rows['conference_image'];
-       
+
         $display_start_date = $edit_rows['conference_start_date'];
         $display_end_date = $edit_rows['conference_end_date'];
         $display_venue = $edit_rows['conference_landmark'];
@@ -107,7 +107,7 @@
 
 
 //Start Date Validation
-        if(!($_POST['_conference_start_date'] == "")) { 
+        if(!($_POST['_conference_start_date'] == "")) {
             if(($_POST['_conference_start_date'] <= $date )){
                 $count++;
                 $_conference_start_date_error = "Date is invalid";
@@ -149,13 +149,13 @@
                 //echo "City: ".$_POST['_conference_city']."<br>";
                 $var_conference_city = $_POST['_conference_city'];
             }
-              
+
         }
-        else{   
+        else{
             $count++;
-            $_conference_city_error = "City is Required";  
+            $_conference_city_error = "City is Required";
         }
-        
+
 //State Validation
 
         if(!($_POST['_conference_state'])== ""){
@@ -167,23 +167,23 @@
                 //echo "City: ".$_POST['_conference_city']."<br>";
                 $var_conference_state = $_POST['_conference_state'];
             }
-              
+
         }
-        else{   
+        else{
             $count++;
-            $_conference_state_error = "City is Required";  
+            $_conference_state_error = "City is Required";
         }
-        
+
 
 
 //Country Validation
         if(!($_POST['_conference_country'])==""){
             //echo "Country: ".$_POST['_conference_country']."<br>";
             $var_conference_country = $_POST['_conference_country'];
-        }   
+        }
         else{
             $count++;
-            $_conference_country_error = "Country is Required";       
+            $_conference_country_error = "Country is Required";
         }
 
 //Postal Code Validation
@@ -206,7 +206,7 @@
         }
         else{
             $count++;
-            $_conference_postalcode_error = "Postal code is Required";   
+            $_conference_postalcode_error = "Postal code is Required";
         }
 
 
@@ -219,8 +219,10 @@
             echo "Invalid Input";
         }
         else{
-           echo $update_query ="UPDATE `conference_detail` SET conference_title='$var_conference_title',conference_image='$var_conference_image',conference_desc='$var_conference_desc',conference_start_date='$var_conference_start_date',conference_end_date='$var_conference_end_date',
-           updated_by='$adminid' WHERE 
+           echo $update_query ="UPDATE `conference_detail` SET conference_title='$var_conference_title',
+           conference_image='$var_conference_image',conference_desc='$var_conference_desc',
+           conference_start_date='$var_conference_start_date',conference_end_date='$var_conference_end_date',
+           updated_by='$adminid' WHERE
            conference_id='$load_conference_id' and 
            admin_id='".$_SESSION['admin_credential']['admin_id']."'";
             if (mysqli_query($_connection, $update_query)) {
@@ -230,8 +232,8 @@
             } else {
                 echo "Error updating record: " . mysqli_error($_connection);
             }
-        }          
- }  
+        }
+ }
 
 
 
@@ -279,14 +281,14 @@
                                     <div class="form-group">
                                         <label>Image</label>
 
-                                    
+
                                         <img src="../upload/<?php echo $display_image; ?>" height=100 weight=100 >
                                             <input type="file" name="_conference_image" class="form-control" value="<?php echo $display_image ?>" >
 
 
-                                       
-                            
-                                        
+
+
+
                                         <span class="error" style="color:red">* <?php echo $_conference_image_error;?></span>
                                     </div>
                                 </div>
@@ -297,14 +299,14 @@
                                     <div class="form-group">
                                         <label>Start Date</label>
                                         <input type="Date" class="form-control" placeholder="Start Date" name="_conference_start_date" value="<?php echo $display_start_date; ?>">
-                                        <span class="error" style="color:red">* <?php echo $_conference_start_date_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_start_date_error;?></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>End Date</label>
                                         <input type="Date" class="form-control" placeholder="End Date" name="_conference_end_date" value="<?php echo $display_end_date; ?>">
-                                        <span class="error" style="color:red">* <?php echo $_conference_end_date_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_end_date_error;?></span>
                                     </div>
                                 </div>
                                 </div>
@@ -315,7 +317,7 @@
                                     <div class="form-group">
                                         <label>venue</label>
                                         <input type="text" class="form-control" placeholder="Home venue" name="_conference_venue">
-                                        <span class="error" style="color:red">* <?php echo $_conference_venue_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_venue_error;?></span>
                                     </div>
                                 </div>
                             </div>
@@ -325,14 +327,14 @@
                                     <div class="form-group">
                                         <label>City</label>
                                         <input type="text" class="form-control" placeholder="City" name="_conference_city">
-                                        <span class="error" style="color:red">* <?php echo $_conference_city_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_city_error;?></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>State</label>
                                         <input type="text" class="form-control" placeholder="State" name="_conference_state">
-                                        <span class="error" style="color:red">* <?php echo $_conference_state_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_state_error;?></span>
                                     </div>
                                 </div>
                             </div>
@@ -342,14 +344,14 @@
                                     <div class="form-group">
                                         <label>Country</label>
                                         <input type="text" class="form-control" placeholder="Country" name="_conference_country">
-                                        <span class="error" style="color:red">* <?php echo $_conference_country_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_country_error;?></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Postal Code</label>
                                         <input type="number" class="form-control" placeholder="Postal Code" name="_conference_postalcode">
-                                        <span class="error" style="color:red">* <?php echo $_conference_postalcode_error;?></span> 
+                                        <span class="error" style="color:red">* <?php echo $_conference_postalcode_error;?></span>
                                     </div>
                                 </div>
                             </div>

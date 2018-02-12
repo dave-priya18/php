@@ -38,7 +38,7 @@
                 <li>
                     <a href="schedule.php">
                         <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
+                        <p>Schedule</p>
                     </a>
                 </li>
                 <li>
@@ -48,15 +48,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="maps.php>
+                    <a href="companybanner.php>
                         <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
+                        <p>Banner</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.php">
+                    <a href="sponsor.php">
                         <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
+                        <p>Sponsors</p>
                     </a>
                 </li>
 				<li class="active-pro">
