@@ -1,117 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Eventoz : Home</title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/icon" href="assets/images/favicon.ico"/>
-    <!-- Font Awesome -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Slick slider -->
-    <link href="assets/css/slick.css" rel="stylesheet">
-    <!-- Theme color -->
-    <link id="switcher" href="assets/css/theme-color/default-theme.css" rel="stylesheet">
 
-    <!-- Main Style -->
-    <link href="style.css" rel="stylesheet">
+<?php 
 
-    <!-- Fonts -->
+require('layout/header.php');
 
-    <!-- Open Sans for body font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
-	<!-- Montserrat for title -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
- 
- 
-	
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-  	
-  	<!-- Start Header -->
-	<header id="mu-hero" class="" role="banner">
-		<!-- Start menu  -->
-		<nav class="navbar navbar-fixed-top navbar-default mu-navbar">
-		  	<div class="container">
-			    <!-- Brand and toggle get grouped for better mobile display -->
-			    <div class="navbar-header">
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
 
-			      <!-- Logo -->
-			      <a class="navbar-brand" href="index.html">Eventoz</a>
 
-			    </div>
+?>
+<?php ?>
 
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      	<ul class="nav navbar-nav mu-menu navbar-right">
-			      		<li><a href="#mu-hero">Home</a></li>
-				        <li><a href="#mu-about">About Us</a></li>
-				        <li><a href="#mu-schedule">Schedule</a></li>
-			            <li><a href="#mu-speakers">Speakers</a></li>
-			            <li><a href="#mu-pricing">Price</a></li>
-			            <li><a href="#mu-register">Register</a></li>
-			            <li><a href="#mu-sponsors">Sponsors</a></li>
-			            <li><a href="#mu-contact">Contact</a></li>
-			      	</ul>
-			    </div><!-- /.navbar-collapse -->
-		  	</div><!-- /.container-fluid -->
-		</nav>
-		<!-- End menu -->
 
-		<div class="mu-hero-overlay">
-			<div class="container">
-				<div class="mu-hero-area">
-
-					<!-- Start hero featured area -->
-					<div class="mu-hero-featured-area">
-						<!-- Start center Logo -->
-						<div class="mu-logo-area">
-							<!-- text based logo -->
-							<a class="mu-logo" href="#">Eventoz</a>
-							<!-- image based logo -->
-							<!-- <a class="mu-logo" href="#"><img src="assets/images/logo.jpg" alt="logo img"></a> -->
-						</div>
-						<!-- End center Logo -->
-
-						<div class="mu-hero-featured-content">
-
-							<h1>HELLO! WELCOME TO EVENTOZ</h1>
-							<h2>The Biggest International IT Professional Conference</h2>
-							<p class="mu-event-date-line">19 - 21 February, 2018. New York, USA</p>
-
-							<div class="mu-event-counter-area">
-								<div id="mu-event-counter">
-									
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<!-- End hero featured area -->
-
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- End Header -->
-	
-	<!-- Start main content -->
+<!-- Start main content -->
 	<main role="main">
 		<!-- Start About -->
 		<section id="mu-about">
@@ -119,21 +17,28 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="mu-about-area">
-							<!-- Start Feature Content -->
+						<?php
+						$select_about_conference = "SELECT * FROM `conference_detail` WHERE conference_active_flag = '1'";
+
+						$result_about_conference = mysqli_query($_connection,$select_about_conference);
+						$active_conference = array();
+
+						while($row_about_conference = mysqli_fetch_assoc($result_about_conference)){
+							$active_conference[] = $row_about_conference['conference_id'];
+						?>
+
 							<div class="row">
 								<div class="col-md-6">
 									<div class="mu-about-left">
-										<img class="" src="assets/images/about.jpg" alt="Men Speaker">
+										<img class="" src="../../upload/<?php echo $row_about_conference['conference_image']?>" alt="Conference Image">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="mu-about-right">
-										<h2>About The Conference</h2>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam aliquam distinctio magni enim error commodi suscipit nobis alias nulla, itaque ex, vitae repellat amet neque est voluptatem iure maxime eius!</p>
+										<h2><?php echo $row_about_conference['conference_title']; ?></h2>
+										<p><?php echo $row_about_conference['conference_desc']; ?></p>
 
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus in accusamus qui sequi nisi, sint magni, ipsam, porro nesciunt id veritatis quaerat ipsum consequatur laborum, provident veniam quibusdam placeat quam?</p>
-
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate perspiciatis magni omnis excepturi, cumque reiciendis.</p>
+										
 									</div>
 								</div>
 							</div>
@@ -145,6 +50,11 @@
 			</div>
 		</section>
 		<!-- End About -->
+	</main>
+
+	<?php } ?>
+	
+	
 
 		<!-- Start Video -->
 		<section id="mu-video">
@@ -327,9 +237,12 @@
 			</div>
 		</section>
 		<!-- End Schedule -->
+<?php 
+	$conf_id = implode(',',$active_conference); ?>
+	
+	
 
-		<!-- Start Speakers -->
-		<section id="mu-speakers">
+	 <section id="mu-speakers">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -337,7 +250,9 @@
 
 							<div class="mu-title-area">
 								<h2 class="mu-title">Our Speakers</h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis unde, ut sapiente et voluptatum facilis consectetur incidunt provident asperiores at necessitatibus nulla sequi voluptas libero quasi explicabo veritatis minima porro.</p>
+
+
+								
 							</div>
 
 							<!-- Start Speakers Content -->
@@ -345,12 +260,21 @@
 
 								<div class="mu-speakers-slider">
 
+									<?php
+								 $select_speaker_query = "SELECT * FROM `conference_speaker_detail` WHERE `conference_id` IN ($conf_id)";
+	 $result_speaker_query = mysqli_query($_connection,$select_speaker_query);
+	 while($rows_speaker_query = mysqli_fetch_assoc($result_speaker_query)){ ?>
+
+
 									<!-- Start single speaker -->
+
 									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-1.jpg" alt="speaker img">
+
+										<img src="../../upload/<?php echo $rows_speaker_query['speaker_image']; ?>">
 										<div class="mu-single-speakers-info">
-											<h3>Karl Groves</h3>
-											<p>Digital Artist</p>
+											<h3><?php echo $rows_speaker_query['speaker_name']?></h3>
+											<p><?php echo $rows_speaker_query['speaker_designation']?></p>
+											<p> Speaking On: <?php echo $rows_speaker_query['speaking_desc']; ?> </p>
 											<ul class="mu-single-speakers-social">
 												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -358,118 +282,20 @@
 											</ul>
 										</div>
 									</div>
+									<?php }
+
+	
+
+?>
 									<!-- End single speaker -->
 
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-2.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Sarah Dransner</h3>
-											<p>Business Consultant</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End single speaker -->
-
-
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-3.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Ned Stark</h3>
-											<p>UI/UX Specialist</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End single speaker -->
-
-
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-4.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Michaela Lehr </h3>
-											<p>Digital Marketer</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End single speaker -->
-
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-1.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Karl Groves</h3>
-											<p>Digital Artist</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End single speaker -->
-
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-2.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Sarah Dransner</h3>
-											<p>Business Consultant</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End single speaker -->
-
-
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-3.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Ned Stark</h3>
-											<p>UI/UX Specialist</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End single speaker -->
-
-
-									<!-- Start single speaker -->
-									<div class="mu-single-speakers">
-										<img src="assets/images/speaker-4.jpg" alt="speaker img">
-										<div class="mu-single-speakers-info">
-											<h3>Michaela Lehr </h3>
-											<p>Digital Marketer</p>
-											<ul class="mu-single-speakers-social">
-												<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
+			
 									<!-- End single speaker -->
 								</div>
 							</div>
+
+		<!-- Start Speakers -->
+		
 							<!-- End Speakers Content -->
 
 						</div>
@@ -478,7 +304,11 @@
 			</div>
 		</section>
 		<!-- End Speakers -->
-
+<?php 
+$select_venue_query = "SELECT * FROM conference_detail WHERE conference_id='".$conf_id."'";
+$result_venue_query = mysqli_query($_connection,$select_venue_query);
+while($rows_venue_query=mysqli_fetch_assoc($result_venue_query)){
+?>
 		<!-- Start Venue -->
 		<section id="mu-venue">
 			<div class="mu-venue-area">
@@ -493,9 +323,10 @@
 					<div class="col-md-6">
 						<div class="mu-venue-address">
 							<h2>VENUE <i class="fa fa-chevron-right" aria-hidden="true"></i></h2>
-							<h3>Orange County Convention Center</h3>
-							<h4>9800 International Dr, Orlando, FL 32819, USA</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem reiciendis incidunt accusantium porro amet repellendus hic corporis fugiat officiis, sequi iste distinctio possimus dignissimos, veniam quae delectus. Fuga, modi, perferendis!</p>
+							<h3><?php echo $rows_venue_query['conference_landmark']; ?> </h3>
+							<h4><?php echo $rows_venue_query['conference_city']; ?> , <?php echo $rows_venue_query['conference_state']; ?> </h4>
+							<h4><?php echo $rows_venue_query['conference_country']; ?> , <?php echo $rows_venue_query['conference_postalcode']; ?> </h4>
+							
 						</div>
 					</div>
 
@@ -503,6 +334,7 @@
 			</div>
 		</section>
 		<!-- End Venue -->
+	<?php } ?>
 
 		<!-- Start Pricing  -->
 		<section id="mu-pricing">
@@ -761,89 +593,35 @@
 								<h2 class="mu-title">Our Sponsors</h2>
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint assumenda ut molestias doloremque ipsam, fugit laborum totam, pariatur est cumque at, repudiandae officia ex dolores quas minus optio, iusto soluta?</p>
 							</div>
-							
+				
 							<!-- Start spnonsors brand logo -->
 							<div class="mu-sponsors-content">
+																				
 								<div class="row">
+								<?php
+				 
+$select_sponsor_query = "SELECT * FROM conference_sponsor_detail WHERE conference_id='".$conf_id."'";
+$result_sponsor_query = mysqli_query($_connection,$select_sponsor_query);
+while($rows_sponsor_query=mysqli_fetch_assoc($result_sponsor_query)){
+?> 
 								
 									<div class="col-md-2 col-sm-4 col-xs-4">
+									
 										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-1.png" alt="Brand Logo">
-										</div>
-									</div>
 
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-2.png" alt="Brand Logo">
+											<img src="../../sponsor/<?php echo $rows_sponsor_query['sponsor_logo'];?>" alt="Brand Logo">
+												
 										</div>
+								
 									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-3.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-4.png" alt="Brand Logo">
-										</div>
-									</div>
-
-										<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-5.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-6.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-7.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-8.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-9.png" alt="Brand Logo">
-										</div>
-									</div>
-
-										<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-1.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-2.png" alt="Brand Logo">
-										</div>
-									</div>
-
-									<div class="col-md-2 col-sm-4 col-xs-4">
-										<div class="mu-sponsors-single">
-											<img src="assets/images/sponsor-logo-3.png" alt="Brand Logo">
-										</div>
-									</div>
-
-								</div>
-							</div>
+<?php } ?>
+									
 							<!-- End spnonsors brand logo -->
 
 						</div>
+						
 					</div>
+				
 				</div>
 			</div>
 		</section>
