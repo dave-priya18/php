@@ -1,13 +1,13 @@
 <?php include('include/connection.php'); ?>
         <?php
         $id = $_GET['id'] ;
-        $delete_user_query = "DELETE FROM user_profile WHERE user_userid='".$id."'";
-        if(!($result_user_query = mysqli_query($_connection,$delete_user_query))){
-            header('Location: userprofile.php');
+        $delete_speaker_query = "DELETE FROM conference_speaker_detail WHERE speaker_id='".$id."'";
+        if(!($result_speaker_query = mysqli_query($_connection,$delete_speaker_query))){
+            header('Location: speaker.php');
             echo "<script type='text/javascript'>alert('Record Deleted successfully!')</script>";
         }
         else{
-            header('Location: userprofile.php');
+            header('Location: speaker.php');
             echo "<script type='text/javascript'>alert('Record Deleted successfully!')</script>";
         }
 ?>
